@@ -1,5 +1,6 @@
 use std::str::FromStr;
 struct Submarine {
+    aim: i32,
     depth: i32,
     x: i32,
 }
@@ -16,6 +17,7 @@ impl Submarine {
 
     fn forward(&mut self, how_far: i32) {
         self.x += how_far;
+        self.depth += self.aim * how_far;
     }
     
     fn backward(&mut self, how_far: i32) {
@@ -23,11 +25,11 @@ impl Submarine {
     }
 
     fn up(&mut self, how_far: i32) {
-        self.depth -= how_far;
+        self.aim -= how_far;
     }
 
     fn down(&mut self, how_far: i32) {
-        self.depth += how_far;
+        self.aim += how_far;
     }
 
     fn position(&self) -> i32 {
@@ -73,7 +75,7 @@ fn main() {
         .map(|line| line.parse::<Movement>() )
         .collect();
 
-    let mut sub  = Submarine { depth: 0, x: 0 };
+    let mut sub  = Submarine { aim: 0, depth: 0, x: 0 };
     for step in input {
         sub.step(step.unwrap());
     }
