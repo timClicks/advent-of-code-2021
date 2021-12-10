@@ -6,10 +6,10 @@ fn diagnose(input: &str) -> f32 {
     for line in input.lines() {
         bit_counts.resize_with(line.len(), HashMap::new);
 
-        for (position, byte) in line.chars().enumerate() {
+        for (position, bit) in line.chars().enumerate() {
             let map = &mut bit_counts[position];
-            let k = map.entry(byte).or_insert(0);
-            *k += 1;
+            let count = map.entry(bit).or_insert(0);
+            *count += 1;
         }
     }
 
@@ -33,7 +33,7 @@ fn diagnose(input: &str) -> f32 {
 }
 
 fn main() {
-   let input = include_str!("input.txt");
+    let input = include_str!("input.txt");
 
     println!("{}", diagnose(input));
 }
